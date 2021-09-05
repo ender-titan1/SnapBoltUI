@@ -1,0 +1,3 @@
+[Main]
+    [Text 200] left 200
+        Text: "Bonjur, world!"
