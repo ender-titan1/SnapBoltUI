@@ -58,7 +58,7 @@ class File:
 
 def main():
     f = File(FILE)
-    c = Compiler(f.lines[0], "Test")
+    c = Compiler(f.lines[0], PROJECT_NAME)
     c.compile()
 
 if __name__ == "__main__": 

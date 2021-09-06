@@ -57,9 +57,6 @@ class Property:
             if self.parent.values[val].endswith("\n"): self.parent.values[val] = self.parent.values[val][:-1]
         print(self.parent.values)
 
-
-
-
 class Tag:
     def __init__(self, pos : list, file, _id : int, line : Line):
         self.children = []

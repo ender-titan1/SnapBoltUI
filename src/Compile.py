@@ -13,10 +13,10 @@ class Compiler:
         self.generate_webpage()
 
     def make_output_folder(self):
-        if not os.path.exists("./snap bolt output"):
-            os.mkdir("./snap bolt output")
-        if not os.path.exists(f"./snap bolt output/{self.project_name}"):
-            os.mkdir(f"./snap bolt output/{self.project_name}")
+        if not os.path.exists("../snap bolt output"):
+            os.mkdir("../snap bolt output")
+        if not os.path.exists(f"../snap bolt output/{self.project_name}"):
+            os.mkdir(f"../snap bolt output/{self.project_name}")
 
     def generate_tags(self, HTML, CSS):
         tags = []
@@ -52,8 +52,8 @@ class Compiler:
         tags = self.generate_tags(HTML, CSS)
                 
 
-        if not os.path.isfile(f"./snap bolt output/{self.project_name}/Main.html"):
-            with open(f'./snap bolt output/{self.project_name}/Main.html', 'w') as f:
+        if not os.path.isfile(f"../snap bolt output/{self.project_name}/Main.html"):
+            with open(f'../snap bolt output/{self.project_name}/Main.html', 'w') as f:
                 f.write(html[0])
                 i = 0
                 for tag in tags:
@@ -61,7 +61,7 @@ class Compiler:
                     i += 1
                 f.write(html[1])
         else:
-            with open(f'./snap bolt output/{self.project_name}/Main.html', 'w') as f:
+            with open(f'../snap bolt output/{self.project_name}/Main.html', 'w') as f:
                 f.write(html[0])
                 i = 0
                 for tag in tags:
@@ -69,13 +69,13 @@ class Compiler:
                     i += 1
                 f.write(html[1])
 
-        if not os.path.isfile(f"./snap bolt output/{self.project_name}/Main.css"):
-            with open(f'./snap bolt output/{self.project_name}/Main.css', 'w') as f:
+        if not os.path.isfile(f"../snap bolt output/{self.project_name}/Main.css"):
+            with open(f'../snap bolt output/{self.project_name}/Main.css', 'w') as f:
                 f.write(
                     CSS.read()
                     )
         else:
-            with open(f'./snap bolt output/{self.project_name}/Main.css', 'w') as f:
+            with open(f'../snap bolt output/{self.project_name}/Main.css', 'w') as f:
                 f.write(
                     CSS.read()
                     )
