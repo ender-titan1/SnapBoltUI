@@ -2,6 +2,7 @@ from Compile import Compiler
 from Classes import Line, LineType
 
 FILE = open("src/Main.sb")
+PROJECT_NAME = "Test"
 
 class File:
     def __init__(self, file):
