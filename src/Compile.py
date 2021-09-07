@@ -25,21 +25,31 @@ class Compiler:
             print(ele.content)
             if ele.content == "Text":
                 p = ""
-                offset = "margin-"
+                marginX = "margin-"
                 if ele.tag.position.pos1 not in (PositionType.SNAP_UNDER, PositionType.SNAP_OVER, PositionType.TOP, PositionType.BOTTOM):
                     p = "text-align: "
                     p += str(ele.tag.position.pos1).lower().split(".")[1]
                     p += ";"
                 if int(ele.tag.position.offset1) < 0:
-                    offset += "right: "
-                    offset += str(abs(int(ele.tag.position.offset1)))
-                    offset += "px;"
+                    marginX += "right: "
+                    marginX += str(abs(int(ele.tag.position.offset1)))
+                    marginX += "px;"
                 else:
-                    offset += "left: "
-                    offset += str(abs(int(ele.tag.position.offset1)))
-                    offset += "px;"
+                    marginX += "left: "
+                    marginX += str(abs(int(ele.tag.position.offset1)))
+                    marginX += "px;"
                 
-                tags.append("\t\t\t<p style=\"font-size: " + str(ele.tag.size1) + "px;" + p + offset +" \"> " + ele.tag.values["Text"].replace("\"", "") + " </p>\n")
+                paddingX = "padding-"
+                if int(ele.tag.position.offset2) < 0:
+                    paddingX += "right: "
+                    marginX += str(abs(int(ele.tag.position.offset1)))
+                    marginX += "px;"
+                else:
+                    paddingX += "left: "
+                    paddingX += str(abs(int(ele.tag.position.offset1)))
+                    paddingX += "px;"
+
+                tags.append("\t\t\t<p style=\"font-size: " + str(ele.tag.size1) + "px;" + p + marginX + paddingX + " \"> " + ele.tag.values["Text"].replace("\"", "") + " </p>\n")
         return tags
 
     def generate_webpage(self):
