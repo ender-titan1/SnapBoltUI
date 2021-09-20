@@ -1,3 +1,5 @@
 [Main]
     [Text 200] left 200
-        Text: "Bonjur, world!"
+        Text: "Hello, world!"
+    [Text 100] center 
+        Text: "Made using SnapBolt!"
