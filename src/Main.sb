@@ -1,5 +1,2 @@
 [Main]
     [Text 200] left 200
-        Text: "Hello, world!"
-    [Text 100] center 
-        Text: "Made using SnapBolt!"
