@@ -1,12 +1,12 @@
-from Classes import *
 from typing import List
+
+import GlobalUtils
+from SnapCoreDefinitions import Context, Pos, Position, Size, Tag
+
 
 class SnapFile:
     def __init__(self, path):
         self.path = path
-        self.setup()
-
-    def setup(self):
         self.set_file()
         self.get_lines()
 
@@ -21,6 +21,7 @@ class SnapData:
     def __init__(self, file : SnapFile):
         self.file = file
         self.tags: List[Tag] = self.gen_tags()
+        print(self.tags())
 
     def gen_tags(self) -> List[Tag]:
         out = []
@@ -37,8 +38,39 @@ class SnapData:
         return out
 
     def get_line_content(self, l):
-        ls = LineSeparator(l)
-        ls.separate()
+        c = False
+        p = False
+        raw_content = ""
+        raw_pos = ""
+        for char in l:
+            if char == "[":
+                c = True
+            elif char == "]":
+                c = False
+                p = True
+            elif c:
+                raw_content += char
+            elif p:
+                raw_pos += char
+
+        pos = raw_pos.split(" ")
+        content = raw_content.split(" ")
+
+        content[:] = [x for x in content if x]
+        pos[:] = [x for x in pos if x]
+
+        print(pos, "\n", content)
+        print(content[0])
+
+        return [
+            content[0],
+            int(content[1]) if GlobalUtils.index_in_list(content, 1) else 0,
+            int(content[2]) if GlobalUtils.index_in_list(content, 2) else 0,
+            Position[pos[0].upper()] if GlobalUtils.index_in_list(pos, 0) else Position.CENTER,
+            int(pos[1]) if GlobalUtils.index_in_list(pos, 1) else 0,
+            int(pos[2]) if GlobalUtils.index_in_list(pos, 2) else 0,
+            Position[pos[3].upper()] if GlobalUtils.index_in_list(pos, 3) else Position.TOP
+        ]
 
     def get_line_indentation(self, l) -> int:
         out = 0
@@ -47,39 +79,3 @@ class SnapData:
             elif char == "\t": out += 4
             else: break
         return out
-
-class LineSeparator:
-    def __init__(self, l):
-        self.l = l
-        self.i = -1
-        self.char = ""
-    
-    def advance(self):
-        self.i += 1
-        self.char = self.l[self.i]
-    
-    def separate(self):
-        raw_content = ""
-        raw_pos = ""
-        is_pos = False
-        is_content = False
-        self.advance()
-        while self.char != "":
-            print("debug")
-            if self.char == "[":
-                self.advance()
-                is_content = True
-            elif is_content and self.char == "]":
-                is_content = False
-                is_pos = True
-            elif is_content:
-                raw_content += self.char
-            elif is_pos:
-                raw_pos += self.char
-            else:
-                self.advance()
-
-        pos = raw_pos.split(" ")
-        content = raw_content.split(" ")
-
-        print(pos);print(content)
