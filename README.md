@@ -1,12 +1,12 @@
 # SnapBoltUI
 SnapBolt is a new way to write webpages
-and desktop apps alike, using almost the same
-code.
+and desktop apps alike, using near identical code.
 
 SnapBolt is made to be simple and ideal for beginners 
 yet a powerful and versatile tool.
-When looking at SnapBolt code it is easy to
-guess what the code does, even to a beginner.
+SnapBolt code is shorter and more readable
+than html or css. SnapBolt is also compatie with
+other languages like css.
 
 ## Getting Started
 - download python 
