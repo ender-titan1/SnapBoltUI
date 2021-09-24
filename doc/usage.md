@@ -10,4 +10,8 @@ listed file extrntions:
 ## Syntax
 SnapBolt uses a system of tags that are
 declared using the syntax below:
-[Tag sizeX sizeY] posX offsetX offsetY posY
+```
+[tag sizeX sizeY] posX offsetX offsetY posY
+    body
+```
+**See tags.md for more information**
