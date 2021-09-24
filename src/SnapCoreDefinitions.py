@@ -15,7 +15,7 @@ class Tag:
         self.context = context
 
     def __repr__(self) -> str:
-        return f"{self.indentation}: [{self.content} {self.context.size.size1} {self.context.size.size2}] {self.context.pos.pos1} {self.context.pos.off1} {self.context.pos.off2} {self.context.pos.pos1}"
+        return f"{self.indentation}: [{self.content} {self.context.size.size1} {self.context.size.size2}] {self.context.pos.pos1} {self.context.pos.off1} {self.context.pos.off2} {self.context.pos.pos2}"
 
 class Context:
     def __init__(self, size, pos ):

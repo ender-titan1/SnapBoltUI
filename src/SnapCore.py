@@ -1,8 +1,16 @@
 from typing import List
 from SnapCoreDefinitions import Context, Pos, Position, Size, Tag
 
-def index_in_list(target, index):
+class SnapBoltException(Exception):
+    pass
+
+def index_in_list(target, index) -> bool:
     return index < len(target)
+
+def remove_empty_elements(list : List) -> None:
+    for ele in list:
+        if ele == "": list.remove(ele)
+
 
 class SnapFile:
     def __init__(self, path):
@@ -21,7 +29,7 @@ class SnapData:
     def __init__(self, file : SnapFile):
         self.file = file
         self.tags: List[Tag] = self.gen_tags()
-        print(self.tags())
+        print(self.tags)
 
     def gen_tags(self) -> List[Tag]:
         out = []
@@ -32,7 +40,7 @@ class SnapData:
                 lc[0], 
                 Context(
                     Size(lc[1], lc[2]), 
-                    Pos(lc[3], lc[4], lc[5], lc[6])
+                    Pos(lc[3], lc[4], lc[6], lc[5])
                 )
             ))
         return out
@@ -56,17 +64,19 @@ class SnapData:
         pos = raw_pos.split(" ")
         content = raw_content.split(" ")
 
-        content[:] = [x for x in content if x]
-        pos[:] = [x for x in pos if x]
+        remove_empty_elements(pos)
+        remove_empty_elements(content)
 
         print(pos, "\n", content)
-        print(content[0])
+
+        if not index_in_list(content, 0):
+            raise SnapBoltException()
 
         return [
             content[0],
             int(content[1]) if index_in_list(content, 1) else 0,
             int(content[2]) if index_in_list(content, 2) else 0,
-            Position[pos[0].upper()] if GlobalUtils.index_in_list(pos, 0) else Position.CENTER,
+            Position[pos[0].upper()] if index_in_list(pos, 0) else Position.CENTER,
             int(pos[1]) if index_in_list(pos, 1) else 0,
             int(pos[2]) if index_in_list(pos, 2) else 0,
             Position[pos[3].upper()] if index_in_list(pos, 3) else Position.TOP
