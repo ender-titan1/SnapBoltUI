@@ -8,6 +8,7 @@ listed file extrntions:
 * .sbolt
 
 ## Syntax
+## Tags
 SnapBolt uses a system of tags that are
 declared using the syntax below:
 ```
@@ -15,3 +16,4 @@ declared using the syntax below:
     body
 ```
 **See tags.md for more information**
+
