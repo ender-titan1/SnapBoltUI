@@ -1,8 +1,8 @@
 from typing import List
-
-import GlobalUtils
 from SnapCoreDefinitions import Context, Pos, Position, Size, Tag
 
+def index_in_list(target, index):
+    return index < len(target)
 
 class SnapFile:
     def __init__(self, path):
@@ -64,12 +64,12 @@ class SnapData:
 
         return [
             content[0],
-            int(content[1]) if GlobalUtils.index_in_list(content, 1) else 0,
-            int(content[2]) if GlobalUtils.index_in_list(content, 2) else 0,
+            int(content[1]) if index_in_list(content, 1) else 0,
+            int(content[2]) if index_in_list(content, 2) else 0,
             Position[pos[0].upper()] if GlobalUtils.index_in_list(pos, 0) else Position.CENTER,
-            int(pos[1]) if GlobalUtils.index_in_list(pos, 1) else 0,
-            int(pos[2]) if GlobalUtils.index_in_list(pos, 2) else 0,
-            Position[pos[3].upper()] if GlobalUtils.index_in_list(pos, 3) else Position.TOP
+            int(pos[1]) if index_in_list(pos, 1) else 0,
+            int(pos[2]) if index_in_list(pos, 2) else 0,
+            Position[pos[3].upper()] if index_in_list(pos, 3) else Position.TOP
         ]
 
     def get_line_indentation(self, l) -> int:
