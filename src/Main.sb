@@ -1,2 +1,4 @@
 [Main]
     [Text 200] left 200 200 top
+        [Area]
+    [Area]

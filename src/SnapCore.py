@@ -30,22 +30,30 @@ class SnapData:
         self.file = file
         self.tags: List[Tag] = self.gen_tags()
         print(self.tags)
+        self.main = self.tags[0]
 
     def gen_tags(self) -> List[Tag]:
         out = []
+        i = 0
         for l in self.file.raw_lines:
-            lc = self.get_line_content(l)
-            out.append(Tag(
-                self.get_line_indentation(l), 
-                lc[0], 
-                Context(
-                    Size(lc[1], lc[2]), 
-                    Pos(lc[3], lc[4], lc[6], lc[5])
-                )
-            ))
+            if len(l) > 1:
+                lc = self.get_line_content(l)
+
+                out.append(Tag(
+                    i,
+                    self.get_line_indentation(l), 
+                    lc[0], 
+                    Context(
+                        Size(lc[1], lc[2]), 
+                        Pos(lc[3], lc[4], lc[6], lc[5]),
+                    ),
+                    self
+                ))
+            i += 1
         return out
 
     def get_line_content(self, l):
+
         c = False
         p = False
         raw_content = ""
@@ -67,7 +75,7 @@ class SnapData:
         remove_empty_elements(pos)
         remove_empty_elements(content)
 
-        print(pos, "\n", content)
+        print(pos, " : ", content)
 
         if not index_in_list(content, 0):
             raise SnapBoltException()
