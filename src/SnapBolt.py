@@ -1,6 +1,5 @@
-import SnapCore
 from SnapCore import SnapFile
-from SnapCore import SnapData
+from SnapCore import SnapData, Tag
 from Webpage import Webpage, Html, HtmlTagConverter
 
 FILE = "src/Main.sb"
@@ -12,7 +11,11 @@ def main():
 
     sd.main.generate_children()
 
-    print(sd.main.context.children)
+    child: Tag
+    print(sd.main, ": ", sd.main.children)
+    for child in sd.main.children:
+        print(child, ": ", child.children)
+
 
     """page = Webpage()
     for tag in sd.tags:
@@ -23,7 +26,6 @@ def main():
 
     print(page.html.tags)"""
 
-    
 
 if __name__ == "__main__": 
     main()

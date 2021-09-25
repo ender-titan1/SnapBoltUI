@@ -1,3 +1,4 @@
 [Main]
     [Text 200] left 200 200 top
-        [Text 200] center
+        [Area]
+    [Area]

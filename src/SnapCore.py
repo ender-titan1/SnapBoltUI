@@ -36,62 +36,59 @@ class SnapData:
         out = []
         i = 0
         for l in self.file.raw_lines:
-            lc = self.get_line_content(l)
+            if len(l) > 1:
+                lc = self.get_line_content(l)
 
-            out.append(Tag(
-                i,
-                self.get_line_indentation(l), 
-                lc[0], 
-                Context(
-                    Size(lc[1], lc[2]), 
-                    Pos(lc[3], lc[4], lc[6], lc[5]),
-                ),
-                self
-            ))
+                out.append(Tag(
+                    i,
+                    self.get_line_indentation(l), 
+                    lc[0], 
+                    Context(
+                        Size(lc[1], lc[2]), 
+                        Pos(lc[3], lc[4], lc[6], lc[5]),
+                    ),
+                    self
+                ))
             i += 1
         return out
 
     def get_line_content(self, l):
 
-        if len(l) > 1:
+        c = False
+        p = False
+        raw_content = ""
+        raw_pos = ""
+        for char in l:
+            if char == "[":
+                c = True
+            elif char == "]":
+                c = False
+                p = True
+            elif c:
+                raw_content += char
+            elif p:
+                raw_pos += char
 
-            c = False
-            p = False
-            raw_content = ""
-            raw_pos = ""
-            for char in l:
-                if char == "[":
-                    c = True
-                elif char == "]":
-                    c = False
-                    p = True
-                elif c:
-                    raw_content += char
-                elif p:
-                    raw_pos += char
+        pos = raw_pos.split(" ")
+        content = raw_content.split(" ")
 
-            pos = raw_pos.split(" ")
-            content = raw_content.split(" ")
+        remove_empty_elements(pos)
+        remove_empty_elements(content)
 
-            remove_empty_elements(pos)
-            remove_empty_elements(content)
+        print(pos, " : ", content)
 
-            print(pos, " : ", content)
+        if not index_in_list(content, 0):
+            raise SnapBoltException()
 
-            if not index_in_list(content, 0):
-                raise SnapBoltException()
-
-            print(content[0])
-
-            return [
-                content[0],
-                int(content[1]) if index_in_list(content, 1) else 0,
-                int(content[2]) if index_in_list(content, 2) else 0,
-                Position[pos[0].upper()] if index_in_list(pos, 0) else Position.CENTER,
-                int(pos[1]) if index_in_list(pos, 1) else 0,
-                int(pos[2]) if index_in_list(pos, 2) else 0,
-                Position[pos[3].upper()] if index_in_list(pos, 3) else Position.TOP,
-            ]
+        return [
+            content[0],
+            int(content[1]) if index_in_list(content, 1) else 0,
+            int(content[2]) if index_in_list(content, 2) else 0,
+            Position[pos[0].upper()] if index_in_list(pos, 0) else Position.CENTER,
+            int(pos[1]) if index_in_list(pos, 1) else 0,
+            int(pos[2]) if index_in_list(pos, 2) else 0,
+            Position[pos[3].upper()] if index_in_list(pos, 3) else Position.TOP
+        ]
 
     def get_line_indentation(self, l) -> int:
         out = 0

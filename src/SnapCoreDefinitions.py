@@ -15,25 +15,27 @@ class Tag:
         self.context = context
         self.index = i
         self.sd = sd
+        self.children = []
 
     def generate_children(self):
+        tag: Tag
         for tag in self.sd.tags: 
-            if tag.index < self.index:
-                if tag.indentation > self.indentation:
-                    self.context.children.append(tag)
-                    tag.generate_children()
-                else: 
-                    break
+            if tag.indentation == self.indentation + 4 and tag.index > self.index:
+                #print("yes")
+                self.children.append(tag)
+                tag.generate_children()
+            else:
+                #print("no")
+                pass
 
 
     def __repr__(self) -> str:
-        return f"{self.indentation}: [{self.content} {self.context.size.size1} {self.context.size.size2}] {self.context.pos.pos1} {self.context.pos.off1} {self.context.pos.off2} {self.context.pos.pos2}"
+        return f"({self.index}) {self.indentation}: [{self.content} {self.context.size.size1} {self.context.size.size2}] {self.context.pos.pos1} {self.context.pos.off1} {self.context.pos.off2} {self.context.pos.pos2}"
 
 class Context:
-    def __init__(self, size, pos, children=[] ):
+    def __init__(self, size, pos ):
         self.size = size
         self.pos = pos
-        self.children = children
 
 class Pos:
     def __init__(self, pos1, off1, pos2, off2):
