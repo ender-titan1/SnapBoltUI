@@ -5,8 +5,8 @@ and desktop apps alike, using near identical code.
 SnapBolt is made to be simple and ideal for beginners 
 yet a powerful and versatile tool.
 SnapBolt code is shorter and more readable
-than html or css. SnapBolt is also compatie with
-other languages like css.
+than html or css. SnapBolt is also compatible with
+other languages like css or javascript.
 
 ## Getting Started
 - download python 
